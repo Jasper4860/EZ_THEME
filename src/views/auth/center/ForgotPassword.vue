@@ -635,7 +635,7 @@ export default {
 
           if (config.is_recaptcha === 1) {
 
-            captchaConfig.siteKey = config.recaptcha_site_key;
+            captchaConfig.siteKey = config.turnstile_site_key || config.recaptcha_site_key || config.recaptcha_v3_site_key;
 
 
 
@@ -667,7 +667,7 @@ export default {
 
       return new Promise((resolve) => {
 
-        if (config.is_recaptcha !== 1 || !config.recaptcha_site_key) {
+        if (config.is_recaptcha !== 1 || !(config.turnstile_site_key || config.recaptcha_site_key || config.recaptcha_v3_site_key)) {
 
           resolve();
 
@@ -1085,6 +1085,10 @@ export default {
 
     const sendVerificationCodeWithCaptcha = async (captchaData) => {
 
+      if (loading.value) {
+        return;
+      }
+
       try {
 
         loading.value = true;
@@ -1104,6 +1108,7 @@ export default {
         if (captchaData) {
 
           sendData.recaptcha_data = captchaData;
+          sendData.turnstile_token = captchaData;
 
         }
 
@@ -1399,18 +1404,6 @@ export default {
 
 
 
-      window.addEventListener('focus', () => {
-
-        if (configLoaded.value && config.is_recaptcha === 1) {
-
-          loadCaptchaScript();
-
-        }
-
-      });
-
-
-
       const urlParams = new URLSearchParams(window.location.search);
 
       const isJustLoggedOut = urlParams.get('logout') === 'true';
@@ -1474,6 +1467,7 @@ export default {
 
 
     onActivated(() => {
+      return;
 
       if (configLoaded.value && config.is_recaptcha === 1 && captchaConfig.type === 'cloudflare') {
 
