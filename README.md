@@ -3,16 +3,6 @@ EZ THEME: A theme for V2Board / wyxBoard / XBoard
 
 TAG: V2B 主题 \ V2B 开源主题 \ XB 主题 \ 主题 \ 面板美化包 \ V2Board 主题
 
-点个 Star 呗大佬们
-
-主题预览: https://t.me/Star_shipx/251
-
-接主题定制！定制价格 500U 起，可选择开发语言 VUE / REACT, JS / TS
-
-定制案例：https://t.me/Star_shipx/293
-
-可以定制注册购买功能
-
 # V2Board User 前端项目
 
 一个美观、现代的V2Board管理后台前端项目，基于Vue 3开发。
@@ -25,12 +15,6 @@ TAG: V2B 主题 \ V2B 开源主题 \ XB 主题 \ 主题 \ 面板美化包 \ V2Bo
 -  响应式设计，适配各种设备
 -  完善的登录认证系统
 -  模块化的代码结构，易于维护
-
-## 社区与联系
-
-👥 **公开群组**： [https://t.me/next_design_group](https://t.me/next_design_group)  
-💬 **联系我**： [https://t.me/Cyou6](https://t.me/Cyou6)
-
 
 ## 项目结构
 
