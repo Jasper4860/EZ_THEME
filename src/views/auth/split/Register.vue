@@ -994,7 +994,7 @@ export default {
 
           if (config.is_recaptcha === 1) {
 
-            captchaConfig.siteKey = config.recaptcha_site_key;
+            captchaConfig.siteKey = config.turnstile_site_key || config.recaptcha_site_key || config.recaptcha_v3_site_key;
 
           }
 
@@ -1265,6 +1265,7 @@ export default {
         if (captchaData) {
 
           sendData.recaptcha_data = captchaData;
+          sendData.turnstile_token = captchaData;
 
         }
 
@@ -1565,10 +1566,12 @@ export default {
           if (formCaptchaElement && formCaptchaElement.value) {
 
             registerData.recaptcha_data = formCaptchaElement.value;
+            registerData.turnstile_token = formCaptchaElement.value;
 
           } else if (captchaResponse.value) {
 
             registerData.recaptcha_data = captchaResponse.value;
+            registerData.turnstile_token = captchaResponse.value;
 
           }
 
@@ -1734,27 +1737,12 @@ export default {
 
       document.addEventListener('click', handleClickOutside);
 
-
-
-      window.addEventListener('focus', () => {
-
-        if (config.is_recaptcha === 1) {
-
-          setTimeout(() => {
-
-            renderFormCaptcha();
-
-          }, 300);
-
-        }
-
-      });
-
     });
 
 
 
     onActivated(() => {
+      return;
 
       if (config.is_recaptcha === 1 && captchaConfig.type === 'cloudflare' && captchaConfig.siteKey) {
 
@@ -2061,7 +2049,7 @@ export default {
 
       return new Promise((resolve) => {
 
-        if (config.is_recaptcha !== 1 || !config.recaptcha_site_key) {
+        if (config.is_recaptcha !== 1 || !(config.turnstile_site_key || config.recaptcha_site_key || config.recaptcha_v3_site_key)) {
 
           resolve();
 
